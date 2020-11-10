@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+    .infobox {
+        margin-top: 15px;
+    }
+    .error {
+        color: red;
+    }
+    h3{
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+    
+</style>
+</head>
+<body>
+    <h3>Customize Your Drink!</h3>
+    <form>
+    <input type="checkbox" name="Large" id="Large" value=0.25 class="infobox">Large +$0.25<br>
+    <input type="checkbox" name="Grass Jelly" id="Grass Jelly" value=0.10 class="infobox">Add Grass Jelly +$0.10<br>
+    <input type="checkbox" name="Boba" id="Boba" value=0.20 class="infobox">Add Boba +$0.20<br>
+    <input type="checkbox" name="Sugar" id="Sugar" value=0 class="infobox">More Sugar<br>
+    <input type="checkbox" name="Less Sugar" id="Less Sugar" value=0 class="infobox">Less Sugar<br>
+    <input type="checkbox" name="Caramel" id="Caramel" value=0.15 class="infobox">Add Caramel +$0.15<br>
+    <p class="error">You must select at least one checkbox</p>
+    <p class="result"></p>
+    <input type="submit" value="Submit" class="submit">
+    </form>
+    <script>
+        $(document).ready(function() {
+            $('.error').hide();
+            $('.submit').click(function(event) {
+                var amt=0;
+                var count=$('input:checked').length;
+                if (count==0) {
+                    $('p.result').hide();
+                    $('.error').show();
+                } else {
+                    $('form').find(':checkbox').each(function() {
+                        if ($(this).is(':checked')) {
+                            amt=amt+parseFloat($(this).val())
+                        }
+                    });
+                    $('.error').hide();
+                    $('p.result').show();
+                    $('p.result').text('The additional amount of $'+amt+' will be added to your receipt')
+                }
+                event.preventDefault();
+            });
+        });
+        </script>
+</body>
+</html>
